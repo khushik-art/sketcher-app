@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    /* Language and environment */
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "useDefineForClassFields": true,
+
+    /* Modules */
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+
+    /* Type safety */
+    "strict": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+
+    /* Vite */
+    "types": ["vite/client"],
+
+    /* Path aliases */
+    "baseUrl": "./src",
+    "paths": {
+      "@core/*": ["core/*"],
+      "@renderer/*": ["renderer/*"],
+      "@ui/*": ["ui/*"]
+    }
+  },
+  "include": ["src"]
+}

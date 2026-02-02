@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sketcher</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- Canvas (base layer) -->
+      <main id="canvas-container">
+        <canvas class="webgl"></canvas>
+      </main>
+
+      <!-- Floating Toolbar -->
+      <div id="toolbar">
+        <div class="toolbar-group">
+          <button id="tool-select">Select</button>
+          <button id="tool-line">Line</button>
+          <button id="tool-circle">Circle</button>
+          <button id="tool-ellipse">Ellipse</button>
+          <button id="tool-polyline">Polyline</button>
+        </div>
+
+        <div class="toolbar-save">
+          <button id="tool-save">Save</button>
+          <button id="tool-load">Upload</button>
+          <input id="file-input" type="file" accept=".json" hidden />
+        </div>
+      </div>
+
+      <!-- Floating Left Panel -->
+      <aside id="shape-list" class="floating-panel left-panel"></aside>
+
+      <!-- Floating Right Panel -->
+      <aside id="properties" class="floating-panel right-panel"></aside>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

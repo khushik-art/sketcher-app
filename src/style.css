@@ -1,0 +1,418 @@
+/* =========================
+   RESET & BASE
+========================= */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #ffffff;
+}
+
+#app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* =========================
+   CANVAS (BASE LAYER)
+========================= */
+#canvas-container {
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+}
+
+canvas.webgl {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* =========================
+   FLOATING TOOLBAR
+========================= */
+#toolbar {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  gap: 12px;
+
+  background: #f5f5f5;
+  padding: 10px 14px;
+  border-radius: 14px;
+
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.08),
+    0 1px 2px rgba(0, 0, 0, 0.06);
+
+  z-index: 20;
+}
+
+.toolbar-group {
+  display: flex;
+  gap: 6px;
+}
+
+.toolbar-save {
+  display: flex;
+  gap: 8px;
+}
+
+#toolbar button {
+  border: none;
+  background: #ffffff;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #222;
+
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+#toolbar button:hover {
+  background: #F4F4F4;
+}
+
+.toolbar-save {
+  display: flex;
+  gap: 8px;
+}
+
+#toolbar button.active {
+  background: #e8f1ff;
+  border: 1px solid #c7dcff;
+  color: #1d4ed8;
+  box-shadow:
+    inset 0 0 0 1px rgba(29, 78, 216, 0.15),
+    0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* =========================
+   FLOATING PANELS (Shared)
+========================= */
+.floating-panel {
+  position: absolute;
+  top: 80px;
+  bottom: 20px;
+
+  background: #F4F4F4;
+;
+  border-radius: 16px;
+  padding: 12px;
+  padding-bottom: 24px;
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.08),
+    0 1px 2px rgba(0, 0, 0, 0.06);
+
+  overflow: hidden;
+  overflow-y: auto;
+  z-index: 15;
+  max-height: calc(100vh - 32px);
+}
+
+/* Left */
+.left-panel {
+  left: 20px;
+  width: 280px;
+}
+
+/* Right */
+.right-panel {
+  right: 20px;
+  width: 300px;
+}
+
+/* =========================
+   SHAPE LIST
+========================= */
+/* =========================
+   SHAPE LIST (FIGMA MATCH)
+========================= */
+
+.panel-header {
+  padding: 14px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+  border-bottom: 1px solid #e5e5e5;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.panel-body {
+  padding: 8px;
+  overflow-y: auto;
+  height: calc(100% - 52px);
+}
+
+/* Shape row */
+.shape-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 10px 12px;
+  margin-bottom: 4px;
+
+  background: transparent;
+  border-radius: 8px;
+
+  font-size: 14px;
+  color: #1f2937;
+  cursor: pointer;
+}
+
+/* Left group: icon + label */
+.shape-item .shape-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Right group: actions */
+.shape-item .shape-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Hover (very subtle) */
+.shape-item:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* Selected (Figma blue pill) */
+.shape-item.selected {
+  background: #4c8dff;
+  color: #ffffff;
+}
+
+.shape-item.selected:hover {
+  background: #4c8dff;
+}
+
+/* Icons inside selected row */
+.shape-item.selected svg,
+.shape-item.selected button {
+  color: #ffffff;
+  fill: #ffffff;
+}
+
+/* Action buttons reset */
+.shape-item button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+/* Icon sizing consistency */
+.shape-item svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 1.8;
+}
+
+.shape-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.shape-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.shape-item button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Selected row icons → white */
+.shape-item.selected button {
+  color: #ffffff;
+}
+
+
+/* =========================
+   PROPERTIES PANEL (FIGMA MATCH)
+========================= */
+
+#properties {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Header card */
+.properties-header {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+}
+
+/* Empty state */
+.properties-empty {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px 16px;
+  text-align: center;
+  font-size: 14px;
+  color: #6b7280;
+  border: 1px dashed #d1d5db;
+}
+
+/* Property cards */
+.properties-section {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+/* Section title */
+.properties-section h4 {
+  margin: 6px 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* Inputs */
+.properties-section input {
+  width: 100%;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+}
+
+.properties-section input:focus {
+  outline: none;
+  border-color: #4c8dff;
+  box-shadow: 0 0 0 2px rgba(76, 141, 255, 0.15);
+}
+
+/* =========================
+   ACTIONS (BOTTOM STACK)
+========================= */
+
+.properties-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+  padding-bottom: 4px;
+}
+
+/* Primary / neutral buttons */
+.properties-actions button {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Hover */
+.properties-actions button:hover {
+  background: #f3f4f6;
+}
+
+/* Delete emphasis */
+.properties-actions button:last-child {
+  color: #b91c1c;
+  border-color: #fecaca;
+}
+
+.properties-actions button:last-child:hover {
+  background: #fee2e2;
+}
+
+
+/* =========================
+   PROPERTIES EMPTY / DISABLED STATE (FIXED)
+========================= */
+
+.properties-empty {
+  position: relative;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px;
+}
+
+/* Dashed inner container */
+.properties-empty::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+
+  border: 1.5px dashed #9ca3af;
+  border-radius: 12px;
+
+  pointer-events: none;
+}
+
+/* Text wrapper – FORCE vertical stack */
+.properties-empty {
+  text-align: center;
+}
+
+/* Reset paragraph layout */
+.properties-empty p {
+  margin: 0;
+  display: block;
+}
+
+/* Title */
+.properties-empty p:first-child {
+  font-weight: 600;
+  font-size: 15px;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+/* Subtitle */
+.properties-empty p:last-child {
+  font-size: 14px;
+  color: #6b7280;
+  max-width: 220px;
+}
+
