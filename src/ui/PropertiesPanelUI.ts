@@ -89,14 +89,16 @@ export class propertiesPanelUI {
         this.onTransformUpdate?.(original); // → updateTransform
       }
     };
-    const hideBtn = document.createElement("button");
-    hideBtn.textContent = shape.visible ? "Hide" : "Show";
+    const visibilityBtn = document.createElement("button");
+  visibilityBtn.textContent = shape.visible ? "Hide" : "Show";
 
-    hideBtn.onclick = () => {
-      shape.visible = !shape.visible;
-      this.onVisibilityChange(shape);
-      this.render();
-    };
+  visibilityBtn.onclick = () => {
+    shape.visible = !shape.visible;
+    this.onVisibilityChange(shape);
+
+    // 🔥 IMPORTANT: full re-render so text always matches state
+    this.render();
+  };
 
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
@@ -106,7 +108,7 @@ export class propertiesPanelUI {
     };
 
     actions.appendChild(updateBtn);
-    actions.appendChild(hideBtn);
+    actions.appendChild(visibilityBtn);
     actions.appendChild(deleteBtn);
 
     this.container.appendChild(actions);

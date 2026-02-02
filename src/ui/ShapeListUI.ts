@@ -11,7 +11,7 @@ export class ShapeListUI {
     containerId: string,
     sketcher: SketcherCore,
     private onDelete?: (id: string) => void,
-    private onVisibilityChange?: (shape: Shape) => void
+    private onVisibilityChange?: (shape: Shape) => void,
   ) {
     const el = document.getElementById(containerId);
     if (!el) throw new Error(`Element #${containerId} not found`);
@@ -73,11 +73,17 @@ export class ShapeListUI {
     actions.className = "shape-actions";
 
     const eyeBtn = document.createElement("button");
+    eyeBtn.className = "visibility-btn";
+
     eyeBtn.textContent = shape.visible ? "👁" : "🚫";
+
     eyeBtn.onclick = (e) => {
       e.stopPropagation();
+
       shape.visible = !shape.visible;
       this.onVisibilityChange?.(shape);
+
+      // 🔥 Force full re-render so icon always matches state
       this.render();
     };
 
@@ -100,11 +106,16 @@ export class ShapeListUI {
 
   private getIcon(type: string): string {
     switch (type) {
-      case "line": return "📐";
-      case "circle": return "⭕";
-      case "ellipse": return "⬭";
-      case "polyline": return "🔗";
-      default: return "◼";
+      case "line":
+        return "📐";
+      case "circle":
+        return "⭕";
+      case "ellipse":
+        return "⬭";
+      case "polyline":
+        return "🔗";
+      default:
+        return "◼";
     }
   }
 }

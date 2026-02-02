@@ -75,9 +75,6 @@ const propertiesUI = new propertiesPanelUI(
 
 propertiesUI.render();
 
-sketcher.addShape(new LineShape({ x: 0, y: 5 }, { x: 5, y: 0 }));
-
-sketcher.addShape(new CircleShape({ x: 0, y: 0 }, 2));
 
 renderer.render(sketcher.getShapes());
 shapeListUI.render();
