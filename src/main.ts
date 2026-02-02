@@ -1,5 +1,3 @@
-import { CircleShape } from "@core/shapes/CircleShape";
-import { LineShape } from "@core/shapes/LineShape";
 import { SketcherCore } from "@core/SketcherCore";
 import { ThreeRenderer } from "@renderer/ThreeRenderer";
 import { ShapeListUI } from "@ui/ShapeListUI";
